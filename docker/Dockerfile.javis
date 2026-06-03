@@ -1,0 +1,87 @@
+FROM hub.bilibili.co/aphrodite/aigc-pytorch:23.06 AS builder
+
+# 确保 /root/.ssh 目录在 builder 阶段存在
+RUN chmod -R 755 /root/.ssh && ls -al /root/.ssh
+
+From nvcr.io/nvidia/pytorch:24.10-py3
+
+COPY --from=builder /root/.ssh /root/.ssh
+# 修改 SSH 私钥文件的权限
+RUN chmod 600 /root/.ssh/id_ed25519 && \
+    chmod 600 /root/.ssh/id_git
+
+# Setup apt and pip source for bilibili
+RUN echo "deb http://mirrors.bilibili.co/ubuntu/ jammy main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.bilibili.co/ubuntu/ jammy-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.bilibili.co/ubuntu/ jammy-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.bilibili.co/ubuntu/ jammy-security main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "[global]" > /etc/pip.conf && \
+    echo "index-url = https://pypi.bilibili.co/repository/pypi-public/simple/" >> /etc/pip.conf && \
+    echo "trusted-host = pypi.bilibili.co" >> /etc/pip.conf && \
+    echo "[global]" > /usr/pip.conf && \
+    echo "index-url = https://pypi.bilibili.co/repository/pypi-public/simple/" >> /usr/pip.conf && \
+    echo "trusted-host = pypi.bilibili.co" >> /usr/pip.conf
+
+# 安装部分apt包，nc 用于 ray 集群拉起时检查端口状态
+RUN apt-get update \
+&& apt-get -y install netcat procps pciutils kmod htop
+
+# 下载安装 AWS CLI
+RUN wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip" \
+&& unzip awscliv2.zip \
+&& ./aws/install
+
+# install verl
+RUN cd /workspace && git clone --single-branch --branch main git@git.bilibili.co:cns/index-verl.git verl \
+  && cd /workspace/verl && pip3 install -e .
+
+# install megatron reqs
+# RUN pip3 uninstall -y transformer_engine && MAX_JOBS=4 pip3 install git+https://github.com/NVIDIA/TransformerEngine.git@stable
+RUN cd /opt/nvidia && git clone --single-branch --branch core_r0.11.0 https://github.com/NVIDIA/Megatron-LM.git Megatron-LM \
+  && cd /opt/nvidia/Megatron-LM && pip3 install --no-deps -e .
+
+RUN pip3 install --no-cache-dir \
+    accelerate \
+    codetiming \
+    datasets \
+    dill \
+    hydra-core \
+    numpy \
+    flash-attn \
+    'py-common==1.0.17' \
+    'pandas' \
+    'peft' \
+    'pyarrow>=15.0.0' \
+    'pybind11' \
+    'pylatexenc' \
+    'ray>=2.10' \
+    'tensordict<0.6' \
+    'transformers' \
+    'vllm==0.7.3' \
+    'math-verify==0.6.0' \
+    'sympy' \
+    'sandbox_fusion' \
+    'openai' \
+    'opencv-python-headless==4.5.4.58' \
+    'wandb' -i https://pypi.bilibili.co/repository/pypi-public/simple
+
+# reinstall latest flash_attn and transformer_engine
+RUN pip uninstall -y flash_attn transformer_engine \
+&& MAX_JOBS=8 pip install flash-attn --no-build-isolation \
+&& MAX_JOBS=8 NVTE_FRAMEWORK=pytorch pip install git+ssh://git.bilibili.co/cns/TransformerEngine@stable
+
+WORKDIR /workspace/verl
+
+# preset entry.sh
+RUN wget http://nyx.bilibili.co/ep/admin/nyx/boss/zhengbin/d132b306500085d7c9326aafadb49bd5-index_verl_entry.sh -O /workspace/verl/entry.sh 
+
+# install TE
+# RUN pip3 uninstall -y transformer_engine && MAX_JOBS=4 pip3 install git+https://github.com/NVIDIA/TransformerEngine.git@stable
+
+# this kind install will occur ` No module named 'vllm._C'` issue, so we install --editable instead
+# VLLM_USE_PRECOMPILED=1 pip3 install --force-reinstall --no-deps git+ssh://git.bilibili.co/cns/vllm@vLLM/v1_engine -i https://pypi.bilibili.co/repository/pypi-public/simple
+RUN cd /opt && git clone --single-branch --branch vLLM/v1_engine git@git.bilibili.co:cns/vllm.git vllm \
+  && cd /opt/vllm && VLLM_USE_PRECOMPILED=1 pip3 install --force-reinstall --no-deps -e . -i https://pypi.bilibili.co/repository/pypi-public/simple
+
+WORKDIR /workspace/verl
+

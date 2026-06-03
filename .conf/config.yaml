@@ -1,0 +1,6 @@
+user_token: "APITOKEN_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ6aGFva2FpMDIiLCJleHAiOjI2OTc2MTEzNzUsImlzcyI6InpoYW9rYWkwMiJ9.FHujb4_jZDJnLqo37uxVeZ46bBraewpPtwQXh6AkYF8"
+# token可以在beats主页左下角点击头像获取
+env: prod
+readwrite_timeout: 10
+use_api_url: "false"
+# 是否使用内网链接，默认false

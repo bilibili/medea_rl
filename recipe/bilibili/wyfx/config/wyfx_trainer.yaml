@@ -1,0 +1,63 @@
+# Adapting for the customizable parameters for wyfx in bilibili.
+
+hydra:
+  searchpath:
+    - file://verl/trainer/config
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+reward_model:
+  reward_kwargs:
+    reward_num_processes: 8
+    max_resp_len: 1024
+    grm:
+      use_llm_verify: False
+      llm_server_ip: null
+      llm_server_port: null
+      genRM_app_address: null
+      instruct_follow_app_address: null
+      reward_model_app_address: null
+    overlong_buffer:
+      enable: False
+      len: 0
+      penalty_factor: 0
+      log: Fasle
+
+actor_rollout_ref:
+  actor:
+    checkpoint:
+      export: True
+      default_local_dir: checkpoints
+      delete_after_upload: False
+
+# custom reward function definition
+custom_reward_function:
+
+  # The path to the file containing your customized reward function.
+  # If not specified, pre-implemented reward functions will be used.
+  path: null
+
+  # The name of the reward function within the specified file. Default is 'compute_score'.
+  name: compute_score
+
+# config for the trainer
+trainer:
+  project_name: verl-ijp
+  experiment_name: gsm8k
+  del_local_ckpt_after_load: False
+  default_local_dir: checkpoints/${trainer.project_name}/${trainer.experiment_name}
+
+  ##### followings params are customized by index #####
+  val_generations_to_log_to_txt: 0
+  summary_dir: /summary_dir
+  delete_after_upload: False
+
+##### followings params are customized by index #####
+d_train_dir: null
+d_pre_model_dir: null
+d_model_dir: null
+d_summary_dir: null
+d_result_dir: null
+config: null
