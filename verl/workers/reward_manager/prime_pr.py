@@ -187,10 +187,10 @@ class IndexPrRewardManager:
         self.reward_num_processes = 1
 
         # self.embedding_tokenizer = AutoTokenizer.from_pretrained(
-        #     '/mnt/group/opensource_models/Qwen3-Embedding-0.6B', padding_side='left'
+        #     'Qwen/Qwen3-Embedding-0.6B', padding_side='left'
         # )
         # self.embedding_model = AutoModel.from_pretrained(
-        #     '/mnt/group/opensource_models/Qwen3-Embedding-0.6B'
+        #     'Qwen/Qwen3-Embedding-0.6B'
         # )
 
         if "LOCAL_RANK" in os.environ:
@@ -203,11 +203,11 @@ class IndexPrRewardManager:
         self.embedding_device = device
 
         self.embedding_tokenizer = AutoTokenizer.from_pretrained(
-            '/mnt/pfs-write/mangoz/model/Qwen3-Embedding-0.6B',
+            'Qwen/Qwen3-Embedding-0.6B',
             padding_side='left'
         )
         self.embedding_model = AutoModel.from_pretrained(
-            '/mnt/pfs-write/mangoz/model/Qwen3-Embedding-0.6B'
+            'Qwen/Qwen3-Embedding-0.6B'
         ).to(device)
 
         self.embedding_model.eval()

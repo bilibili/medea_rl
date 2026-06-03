@@ -13,19 +13,13 @@
 # limitations under the License.
 
 from verl.utils.import_utils import deprecated
-from verl.utils.reward_score import general, reward_model, renaissance_dvc_pr
+from verl.utils.reward_score import medea
 
 
 def default_compute_score(data_source, solution_str, ground_truth, extra_info=None, sandbox_fusion_url=None, concurrent_semaphore=None):
-    if data_source == 'renaissance_dvc_pr':
-        extra_info["data_source"] = "renaissance_dvc_pr"
-        return renaissance_dvc_pr.compute_score(solution_str, ground_truth, extra_info)
-    elif data_source == 'general' or data_source == "general_nbs":
-        extra_info["data_source"] = "general"
-        return reward_model.compute_score(solution_str, ground_truth, extra_info)
-    elif data_source == 'long2short':
-        extra_info["data_source"] = "long2short"
-        return general.compute_score(solution_str, ground_truth, extra_info)
+    if data_source == 'medea':
+        extra_info["data_source"] = "medea"
+        return medea.compute_score(solution_str, ground_truth, extra_info)
     else:
         raise NotImplementedError(f"Reward function is not implemented for {data_source=}")
 

@@ -156,10 +156,10 @@ class IndexRewardManager:
         #     )
 
         # self.embedding_tokenizer = AutoTokenizer.from_pretrained(
-        #     '/mnt/group/opensource_models/Qwen3-Embedding-0.6B', padding_side='left'
+        #     'Qwen/Qwen3-Embedding-0.6B', padding_side='left'
         # )
         # self.embedding_model = AutoModel.from_pretrained(
-        #     '/mnt/group/opensource_models/Qwen3-Embedding-0.6B'
+        #     'Qwen/Qwen3-Embedding-0.6B'
         # )
         # self.embedding_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         # self.embedding_model.to(self.embedding_device)

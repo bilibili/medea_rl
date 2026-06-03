@@ -62,10 +62,13 @@ from verl.utils.torch_functional import masked_mean
 from verl.utils.tracking import ValidationGenerationsLogger
 
 import time
-from recipe.bilibili.metric.metrics import compute_reward_metrics
-from verl.bl_utils.async_saver import AsyncSaverActor, gen_remote_path
 from verl.utils.hdfs_io import copy as hybrid_copy
 from verl.bl_utils.future_collector import get_future_collector
+from verl.bl_utils.async_saver import AsyncSaverActor, gen_remote_path
+
+def compute_reward_metrics(batch, reward_extra_infos_dict):
+    """Placeholder for custom reward metrics."""
+    return {}
 
 
 @dataclass
