@@ -1,0 +1,16 @@
+# Core dependencies for MEDEA GRPO training
+accelerate
+codetiming
+datasets
+dill
+hydra-core
+numpy<2.0.0
+pandas
+pyarrow>=19.0.0
+ray[default]
+tensordict>=0.8.0,<=0.10.0,!=0.9.0
+torchdata
+transformers
+wandb
+packaging>=20.0
+tensorboard
