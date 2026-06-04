@@ -12,5 +12,5 @@ tensordict>=0.8.0,<=0.10.0,!=0.9.0
 torchdata
 transformers
 wandb
-packaging>=20.0
+packaging>=26.2
 tensorboard
