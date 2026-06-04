@@ -71,9 +71,6 @@ verl/
 │   └── reward_manager/         # Social Alignment Reward orchestration
 ├── utils/reward_score/
 │   └── medea.py                # Composite reward function
-examples/
-├── grpo_trainer/               # GRPO training examples
-├── data_preprocess/            # Data preprocessing utilities
 train_medea.sh                  # Training launch script
 ```
 
