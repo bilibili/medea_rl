@@ -17,6 +17,42 @@ This repository contains the reinforcement learning training code for **MEDEA** 
 
 MEDEA redefines UGC quality assessment by shifting focus from aesthetic fidelity to **social-cognitive resonance**. It introduces *Social Chain-of-Thought (Social-CoT)*, where the model simulates diverse viewer personas and generates empathetic reasoning paths before making a quality judgment.
 
+## Project Structure
+
+```
+verl/
+├── trainer/                    # GRPO trainer (Ray distributed)
+├── workers/
+│   └── reward_manager/         # Social Alignment Reward orchestration
+├── utils/reward_score/
+│   └── medea.py                # Composite reward function
+train_medea.sh                  # Training launch script
+```
+
+## Reward Function
+
+The core reward implementation is in `verl/utils/reward_score/medea.py`.
+
+The scoring formula:
+```
+total = format_score + 0.5 * count_score + 1.0 * sim_score + 2.0 * answer_score
+```
+
+| Component | Description |
+|-----------|-------------|
+| `format_score` | 0 if `<think>...</think>` structure is correct, -1 otherwise |
+| `count_score` | Diversity penalty: -0.1 for each duplicate comment |
+| `sim_score` | Social Alignment: greedy-matched cosine similarity between generated and real comments |
+| `answer_score` | 1.0 if predicted label matches ground truth, 0.0 otherwise |
+
+## Data Format
+
+Training data should be in parquet format with:
+- `prompt`: Input prompt (UGC metadata + instruction)
+- `data_source`: `"medea"`
+- `reward_model.ground_truth`: Expected quality label ("High-Quality" / "Low-Quality")
+- `reward_model.real_comments`: List of real user comments for social alignment
+
 ## Installation
 
 ```bash
@@ -217,42 +253,6 @@ Results on CASTER-Bench:
 | Claude-4.5-opus (Long-CoT) | 0.528 | 0.517 | 0.522 |
 | Qwen3-VL-Plus (Social-CoT) | 0.508 | 0.647 | 0.578 |
 | GPT-5.2 | 0.506 | 0.489 | 0.498 |
-
-## Reward Function
-
-The core reward implementation is in `verl/utils/reward_score/medea.py`.
-
-The scoring formula:
-```
-total = format_score + 0.5 * count_score + 1.0 * sim_score + 2.0 * answer_score
-```
-
-| Component | Description |
-|-----------|-------------|
-| `format_score` | 0 if `<think>...</think>` structure is correct, -1 otherwise |
-| `count_score` | Diversity penalty: -0.1 for each duplicate comment |
-| `sim_score` | Social Alignment: greedy-matched cosine similarity between generated and real comments |
-| `answer_score` | 1.0 if predicted label matches ground truth, 0.0 otherwise |
-
-## Data Format
-
-Training data should be in parquet format with:
-- `prompt`: Input prompt (UGC metadata + instruction)
-- `data_source`: `"medea"`
-- `reward_model.ground_truth`: Expected quality label ("High-Quality" / "Low-Quality")
-- `reward_model.real_comments`: List of real user comments for social alignment
-
-## Project Structure
-
-```
-verl/
-├── trainer/                    # GRPO trainer (Ray distributed)
-├── workers/
-│   └── reward_manager/         # Social Alignment Reward orchestration
-├── utils/reward_score/
-│   └── medea.py                # Composite reward function
-train_medea.sh                  # Training launch script
-```
 
 ## Citation
 
