@@ -1,4 +1,9 @@
-# CASTER: Community-Aware Assessment of Social Textual Engagement and Resonance
+# MEDEA: Multimodal Engagement-Driven Evaluation Architecture
+
+[![Paper](https://img.shields.io/badge/arXiv-CASTER-b31b1b.svg)](https://arxiv.org/abs/2606.01897)
+[![Code](https://img.shields.io/badge/GitHub-medea__rl-blue.svg)](https://github.com/bilibili/medea_rl)
+[![Model](https://img.shields.io/badge/HuggingFace-MEDEA-yellow.svg)](https://huggingface.co/IndexTeam/MEDEA)
+[![Dataset](https://img.shields.io/badge/HuggingFace-CASTER--Bench-green.svg)](https://huggingface.co/datasets/IndexTeam/CASTER-Bench)
 
 This repository contains the reinforcement learning training code for **MEDEA** (Multimodal Engagement-Driven Evaluation Architecture), as described in:
 
