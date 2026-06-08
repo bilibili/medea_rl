@@ -9,7 +9,7 @@ This repository contains the reinforcement learning training code for **MEDEA** 
 
 > **Community-Aware Assessment of Social Textual Engagement and Resonance: A Human-Centric Perspective on User-Generated Content Evaluation**
 >
-> Tianjiao Li, Kai Zhao, Xiang Li, Yang Liu, Huyang Sun
+> Tianjiao Li\*, Kai Zhao\*, Xiang Li, Yang Liu, Huyang Sun
 >
 > ACL 2026
 
