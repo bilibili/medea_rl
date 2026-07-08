@@ -1,7 +1,7 @@
 # MEDEA: Multimodal Engagement-Driven Evaluation Architecture
 
 [![Demo](https://img.shields.io/badge/Demo-Online-orange.svg)](https://vowel-bagging-tweed.ngrok-free.dev/?token=acl2026caster)
-[![Paper](https://img.shields.io/badge/arXiv-CASTER-b31b1b.svg)](https://arxiv.org/abs/2606.01897)
+[![Paper](https://img.shields.io/badge/ACL_2026-CASTER-b31b1b.svg)](https://aclanthology.org/2026.acl-long.985/)
 [![Code](https://img.shields.io/badge/GitHub-medea__rl-yellow.svg)](https://github.com/bilibili/medea_rl)
 [![Model](https://img.shields.io/badge/HuggingFace-MEDEA-blue.svg)](https://huggingface.co/IndexTeam/MEDEA)
 [![Dataset](https://img.shields.io/badge/HuggingFace-CASTER--Bench-green.svg)](https://huggingface.co/datasets/IndexTeam/CASTER-Bench)
@@ -258,11 +258,12 @@ Results on CASTER-Bench:
 ## Citation
 
 ```bibtex
-@article{li2026community,
+@inproceedings{li2026community,
   title={Community-Aware Assessment of Social Textual Engagement and Resonance: A Human-Centric Perspective on User-Generated Content Evaluation},
   author={Li, Tianjiao and Zhao, Kai and Li, Xiang and Liu, Yang and Sun, Huyang},
-  journal={arXiv preprint arXiv:2606.01897},
-  year={2026}
+  booktitle={Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  year={2026},
+  url={https://aclanthology.org/2026.acl-long.985/}
 }
 ```
 
