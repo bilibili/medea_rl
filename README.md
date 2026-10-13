@@ -1,6 +1,7 @@
 # MEDEA: Multimodal Engagement-Driven Evaluation Architecture
 
 [![Demo](https://img.shields.io/badge/Demo-Online-orange.svg)](https://vowel-bagging-tweed.ngrok-free.dev/?token=acl2026caster)
+[![Website](https://img.shields.io/badge/Project-Website-947345.svg)](https://bilibili.github.io/medea_rl/)
 [![Paper](https://img.shields.io/badge/ACL_2026-CASTER-b31b1b.svg)](https://aclanthology.org/2026.acl-long.985/)
 [![Code](https://img.shields.io/badge/GitHub-medea__rl-yellow.svg)](https://github.com/bilibili/medea_rl)
 [![Model](https://img.shields.io/badge/HuggingFace-MEDEA-blue.svg)](https://huggingface.co/IndexTeam/MEDEA)

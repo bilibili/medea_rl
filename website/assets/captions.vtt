@@ -1,0 +1,224 @@
+WEBVTT
+
+00:00.000 --> 00:04.900
+Hello everyone. I am Zhao Kai from the Bilibili Index Team.
+
+00:05.599 --> 00:14.500
+Today, I am very happy to present our work,
+Community-Aware Assessment of Social Textual Engagement and Resonance,
+
+00:14.500 --> 00:23.399
+A Human-Centric Perspective on User-Generated Content Evaluation,
+or we can call it CASTER.
+This work focuses on a fundamental question,
+How should we define the quality of user-generated content?
+
+00:24.300 --> 00:28.800
+Traditionally, video quality assessment mainly focuses
+on low-level visual signals.
+
+00:29.600 --> 00:38.500
+For example, traditional VQA methods emphasize
+pixel-level quality, distortion modeling,
+blur, noise, compression artifacts, and motion consistency.
+
+00:39.600 --> 00:45.899
+These methods work well for evaluating visual fidelity,
+but they cannot capture whether users actually like the content.
+
+00:47.000 --> 00:56.799
+Recently, large multimodal models significantly improved
+semantic understanding.
+They can understand objects, events, actions,
+and even high-level semantics.
+
+00:57.600 --> 01:01.200
+However, standard LMMs still have two major limitations.
+
+01:02.299 --> 01:05.000
+First, their reasoning is often verbose and unstable.
+
+01:06.200 --> 01:09.400
+Second, they are not aligned with real community preferences.
+
+01:10.400 --> 01:24.900
+In real-world UGC platforms, content quality is not determined
+only by visual clarity or semantic correctness.
+Instead, quality is fundamentally shaped by
+audience reactions, emotional resonance, engagement,
+and collective social preference.
+
+01:25.900 --> 01:35.500
+Therefore, we propose CASTER,
+a community-aware UGC quality assessment framework
+that shifts the focus from
+Pixel Quality → Semantic Quality → Social Preference Quality.
+
+01:36.500 --> 01:40.200
+To study this problem, we construct
+a new benchmark called CASTER-Bench.
+
+01:41.299 --> 01:47.700
+CASTER-Bench contains 1,485 UGC videos,
+spanning 30 major content categories.
+
+01:48.500 --> 02:02.900
+The videos include visual content, cover images,
+titles, tags, categories, and long-form temporal information.
+The average video duration is about 442 seconds.
+
+02:03.299 --> 02:13.099
+Unlike existing VQA datasets,
+our benchmark is annotated using a human-centered rubric.
+The annotation process explicitly considers
+audience preference, social engagement, and community resonance.
+
+02:13.900 --> 02:24.599
+As a result, the benchmark better reflects
+how real users evaluate content quality on online platforms.
+
+02:24.599 --> 02:28.599
+One key idea in our work is called
+Social Chain-of-Thought, or Social-CoT.
+
+02:28.599 --> 02:35.099
+Traditional CoT mainly focuses on logical reasoning.
+However, when humans judge UGC quality,
+they often simulate audience reactions implicitly.
+
+02:35.900 --> 02:45.300
+For example, viewers may think,
+"This video is emotionally engaging."
+"Users will probably find this funny."
+"This content may trigger strong discussion."
+or "This title feels misleading."
+
+02:46.400 --> 02:54.699
+Therefore, instead of only reasoning about visual semantics,
+we encourage the model to reason about
+user perception, emotional response, and community feedback.
+
+02:55.699 --> 03:04.800
+In our framework, the model first analyzes multimodal signals,
+then simulates possible user reactions and social responses
+before producing the final quality judgment.
+
+03:05.800 --> 03:09.400
+This makes the reasoning process
+much more interpretable and human-aligned.
+
+03:10.300 --> 03:17.699
+Based on this idea, we propose our framework called MEDEA,
+which stands for
+Multimodal Engagement-Driven Evaluation Architecture.
+
+03:18.599 --> 03:23.000
+MEDEA integrates multimodal perception,
+social reasoning, and preference alignment.
+
+03:24.000 --> 03:26.500
+The framework consists of three major stages.
+
+03:27.500 --> 03:31.699
+First, we perform supervised fine-tuning
+using Social-CoT trajectories.
+
+03:32.699 --> 03:36.099
+Second, we introduce
+process-supervised reinforcement learning.
+
+03:37.000 --> 03:40.500
+Third, we design a new reward
+called the Social Alignment Reward.
+
+03:41.400 --> 03:47.099
+This reward explicitly encourages the model
+to generate reasoning paths
+that better match human social preferences.
+
+03:48.300 --> 03:55.699
+Compared with standard reasoning-based LMMs,
+MEDEA produces more stable reasoning,
+more socially grounded judgments, and better interpretability.
+
+03:56.800 --> 03:59.199
+Now let's look at the experimental results.
+
+04:00.099 --> 04:07.000
+We compare MEDEA with three categories of baselines:
+traditional VQA methods, standard LMMs,
+and reasoning-enhanced LMMs.
+
+04:08.099 --> 04:10.400
+We observe several important findings.
+
+04:11.300 --> 04:15.099
+First, traditional VQA methods
+suffer from strong signal dominance.
+
+04:16.199 --> 04:20.399
+They mainly rely on low-level visual quality
+and fail to capture social preference.
+
+04:21.399 --> 04:24.800
+Second, standard LMMs often show a generosity bias.
+
+04:25.800 --> 04:30.100
+They tend to overestimate content quality
+because they lack proper preference alignment.
+
+04:31.000 --> 04:35.000
+Finally, our MEDEA framework
+significantly outperforms all baselines.
+
+04:36.199 --> 04:42.899
+Especially, MEDEA achieves much better balance among
+semantic understanding, social reasoning,
+and human preference alignment.
+
+04:44.000 --> 04:49.699
+In addition, the generated Social-CoT paths
+provide interpretable explanations for the final predictions.
+
+04:50.699 --> 04:53.199
+We also conduct extensive ablation studies.
+
+04:54.100 --> 05:03.899
+First, we verify the necessity of social reasoning paths.
+Removing Social-CoT leads to clear performance degradation,
+showing that explicit social reasoning is essential.
+
+05:05.300 --> 05:14.699
+Second, we analyze the impact of Social Alignment Reward.
+Without this reward, the model becomes less aligned
+with human judgments and produces less reliable reasoning.
+
+05:15.699 --> 05:25.100
+We further perform qualitative analysis and observe
+that MEDEA can generate more audience-aware explanations,
+more empathetic reasoning,
+and more realistic community simulations.
+
+05:26.000 --> 05:36.000
+To summarize: First, we introduce CASTER,
+a community-aware UGC quality assessment task
+that redefines video quality through the lens of
+social reasoning and collective audience preference.
+
+05:37.000 --> 05:44.600
+Second, we release CASTER-Bench,
+a multimodal benchmark annotated with a human-centered
+quality rubric for socially grounded UGC evaluation.
+
+05:45.699 --> 05:52.000
+Third, we propose MEDEA, which pioneers Social-CoT
+for empathetic audience simulation
+and social preference alignment.
+
+05:52.899 --> 06:00.300
+Finally, extensive experiments demonstrate that MEDEA
+significantly outperforms diverse baselines
+while offering strong interpretability.
+
+06:01.399 --> 06:02.399
+Thank you for listening.
