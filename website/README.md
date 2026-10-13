@@ -16,7 +16,7 @@ Visit http://127.0.0.1:8794. A local server enables video subtitles and clipboar
 
 ## Deployment
 
-GitHub Pages must use **GitHub Actions** as its source in the repository’s Settings → Pages. The `Deploy CASTER website` workflow publishes only this directory on pushes to `main` affecting `website/` or the workflow itself. It can also be run manually from Actions.
+GitHub Pages must use **GitHub Actions** as its source in the repository’s Settings → Pages. The `Deploy CASTER website` workflow publishes only this directory on pushes to `main` affecting `website/` or the workflow itself. It can also be run manually from Actions. If Pages is enabled after the first deployment attempt, re-run the workflow once to publish the existing site.
 
 `index.html` uses relative asset paths and absolute canonical / Open Graph URLs for the project URL above. If the site moves, update those URLs.
 
